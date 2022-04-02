@@ -1,25 +1,41 @@
-import logo from './logo.svg';
+import { useEffect, useState } from 'react';
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+ <PhoneList/>
     </div>
   );
+}
+
+function PhoneList(){
+  const [mobiles,setMobiles]=useState([]);
+
+  useEffect( ()=>{
+    fetch("https://mobilesstore.herokuapp.com//mobiles")
+  .then((data)=>data.json())
+  .then((mbs)=> setMobiles(mbs));
+  },[]);
+  
+  return(
+    <div className="App phone-list-container">  
+    {mobiles.map((mobile)=>
+      <Phone key={mobile._id} mobile={mobile}/>
+    )}
+     </div>
+  );
+
+}
+
+
+function Phone({mobile}){
+ 
+  return <div className='phone-container'>
+<img src={mobile.img} alt={mobile.model} className="phone-picture"/>
+<h2 className='phone-name'>{mobile.model}</h2>
+<p className='phone-company'>{mobile.company}</p>
+  </div>
 }
 
 export default App;
