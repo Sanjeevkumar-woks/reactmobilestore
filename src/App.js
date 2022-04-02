@@ -13,7 +13,7 @@ function PhoneList(){
   const [mobiles,setMobiles]=useState([]);
 
   useEffect( ()=>{
-    fetch("https://mobilesstore.herokuapp.com//mobiles")
+    fetch("https://mobilesstore.herokuapp.com/mobiles")
   .then((data)=>data.json())
   .then((mbs)=> setMobiles(mbs));
   },[]);
